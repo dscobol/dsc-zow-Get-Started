@@ -1,0 +1,36 @@
+//ZAAAAAQ  JOB NOTIFY=&SYSUID,
+// MSGCLASS=H,MSGLEVEL=(1,1),REGION=0M
+//****************************************************************
+//* THE HLQ SYMBOLIC MUST CONTAIN THE HIGH LEVEL
+//* QUALIFIER UNDER WHICH THE PROJ DATASETS MAY RESIDE.
+//*     In all these examples, a HLQ of ZAAAAA is used.
+//*     Change that to your TSO userid.
+//*
+//E1       EXPORT SYMLIST=(HLQ,PROJ,PGM1)
+//HLQ      SET HLQ='ZAAAAA'
+//PROJ     SET PROJ='SIMRPT'
+//PGM1     SET PGM1='WS172A'
+//*************************
+//* COMPILE, LINK
+//*************************
+//COBRUN   EXEC IGYWCL
+//COBOL.SYSIN   DD DSN=&HLQ..&PROJ..CBL(&PGM1.),DISP=SHR
+//COBOL.SYSLIB  DD DSN=&HLQ..&PROJ..CPY,DISP=SHR
+//LKED.SYSLMOD  DD DSN=&HLQ..&PROJ..LOAD(&PGM1.),DISP=SHR
+//LKED.SYSPRINT DD DUMMY
+//*
+// IF RC < 5 THEN
+//*************************
+//* RUN IT
+//*************************
+//RUN      EXEC PGM=&PGM1.
+//STEPLIB  DD DSN=&HLQ..&PROJ..LOAD,DISP=SHR
+//STCOURS  DD DSN=&HLQ..&PROJ..STCOURS,DISP=SHR
+//ERRFILE  DD SYSOUT=*,OUTLIM=15000
+//RPTFILE  DD SYSOUT=*,OUTLIM=15000
+//SYSOUT   DD SYSOUT=*,OUTLIM=15000
+//CEEDUMP  DD DUMMY
+//SYSUDUMP DD DUMMY
+//*
+// ELSE
+// ENDIF

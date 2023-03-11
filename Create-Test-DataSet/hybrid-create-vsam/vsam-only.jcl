@@ -1,0 +1,26 @@
+//ZAAAAAV  JOB NOTIFY=&SYSUID,
+// MSGCLASS=H,MSGLEVEL=(1,1),REGION=0M
+//* THE HLQ SYMBOLIC MUST CONTAIN THE HIGH LEVEL
+//* QUALIFIER UNDER WHICH THE PROJ DATASETS MAY RESIDE.
+//*     In all these examples, a HLQ of ZAAAAA is used.
+//*     Change that to your TSO userid.
+//*
+//E1       EXPORT SYMLIST=(HLQ,PROJ,VDS1)
+//HLQ      SET HLQ='ZAAAAA'
+//PROJ     SET PROJ='TEST'
+//VDS1     SET VDS1='VEMP'
+//*************************
+//* CREATE DATASET
+//*************************
+//S1       EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *,SYMBOLS=JCLONLY
+  DELETE &HLQ..&PROJ..&VDS1
+  SET MAXCC=0
+  DEFINE CLUSTER ( NAME (&HLQ..&PROJ..&VDS1) -
+           VOLUME(VPWRKB) TRACKS(5) RECORDSIZE(99,99) -
+           INDEXED KEYS(6 0) -
+           REUSE SHAREOPTIONS(2) SPANNED SPEED -
+           CONTROLINTERVALSIZE(4096) )
+/*
+//* End of job

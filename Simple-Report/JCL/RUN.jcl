@@ -1,0 +1,24 @@
+//ZAAAAAQ  JOB NOTIFY=&SYSUID,
+// MSGCLASS=H,MSGLEVEL=(1,1),REGION=0M
+//****************************************************************
+//* THE HLQ SYMBOLIC MUST CONTAIN THE HIGH LEVEL
+//* QUALIFIER UNDER WHICH THE PROJ DATASETS MAY RESIDE.
+//*     In all these examples, HLQ=ZAAAAA is used.
+//*     Change that to your TSO userid.
+//*
+//E1       EXPORT SYMLIST=(HLQ,PROJ,PGM1)
+//HLQ      SET HLQ='ZAAAAA'
+//PROJ     SET PROJ='SIMRPT'
+//PGM1     SET PGM1='WS172A'
+//*************************
+//* RUN IT
+//*************************
+//RUN      EXEC PGM=&PGM1.
+//STEPLIB  DD DSN=&HLQ..&PROJ..LOAD,DISP=SHR
+//STCOURS  DD DSN=&HLQ..&PROJ..STCOURS,DISP=SHR
+//ERRFILE  DD SYSOUT=*,OUTLIM=15000
+//RPTFILE  DD SYSOUT=*,OUTLIM=15000
+//SYSOUT   DD SYSOUT=*,OUTLIM=15000
+//CEEDUMP  DD DUMMY
+//SYSUDUMP DD DUMMY
+//*
