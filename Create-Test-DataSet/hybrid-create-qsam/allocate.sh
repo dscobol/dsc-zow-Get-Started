@@ -18,7 +18,7 @@ DATAFILE='employees.dat.txt'
 
 HLQ="ZAAAAA"
 PROJ='TEST'
-MEMBNAME='EMPDATA'
+QDS1='EMPDATA'
 
 FILES_CMD="zos-files"
 JOBS_CMD="zos-jobs"
@@ -28,4 +28,4 @@ zowe ${JOBS_CMD} submit local-file allocate.jcl
 sleep 2s
 
 echo "Zowe, upload the file."
-zowe ${FILES_CMD} upload file-to-data-set ${DATAFILE} ${HLQ}.${PROJ}.${MEMBNAME}
+zowe ${FILES_CMD} upload file-to-data-set ${DATAFILE} ${HLQ}.${PROJ}.${QDS1}
